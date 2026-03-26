@@ -10,6 +10,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hazor-cloud/terraform-provider-hazor/internal/client"
+	"github.com/hazor-cloud/terraform-provider-hazor/internal/datasources"
 	"github.com/hazor-cloud/terraform-provider-hazor/internal/resources"
 )
 
@@ -119,9 +120,27 @@ func (p *HazorProvider) Resources(ctx context.Context) []func() resource.Resourc
 		resources.NewRunnerResource,
 		resources.NewBunAppResource,
 		resources.NewSupabaseInstanceResource,
+		// Phase 1
+		resources.NewTargetGroupResource,
+		resources.NewLaunchTemplateResource,
+		resources.NewAutoScalingGroupResource,
+		resources.NewImageResource,
+		resources.NewSecretResource,
+		resources.NewAPIKeyResource,
 	}
 }
 
 func (p *HazorProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
-	return []func() datasource.DataSource{}
+	return []func() datasource.DataSource{
+		datasources.NewVPCDataSource,
+		datasources.NewSubnetDataSource,
+		datasources.NewImageDataSource,
+		datasources.NewInstanceDataSource,
+		datasources.NewSecurityGroupDataSource,
+		datasources.NewKeyPairDataSource,
+		datasources.NewDnsZoneDataSource,
+		datasources.NewLoadBalancerDataSource,
+		datasources.NewAvailabilityZonesDataSource,
+		datasources.NewInstanceTypesDataSource,
+	}
 }
